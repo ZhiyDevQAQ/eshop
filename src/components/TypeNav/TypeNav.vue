@@ -72,7 +72,7 @@ export default {
 
   mounted() {
     // 判断是不是home，如果不是home则默认关闭TypeNav
-    if (this.$route.path !== '/home') {
+    if (this.$route.path !== '/Home') {
       this.showTypeNav = false;
     }
   },
