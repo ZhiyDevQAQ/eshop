@@ -56,16 +56,16 @@ export default {
   name: "HeaderComponent",
   methods: {
     routeToSearch() {
-      this.$router.push(
-        {
-          name: "search",
-          params: {
-            keyword: this.keyword || undefined,
-          },
-          query: {
-            k: this.keyword,
-          },
-        });
+      let location = {
+        name: "search",
+        params: {
+          keyword: this.keyword || undefined,
+        },
+      };
+      if (this.$route.query) {
+        location.query = this.$route.query;
+      }
+      this.$router.push(location);
     },
   },
   data() {

@@ -98,7 +98,7 @@
 <script>
 export default {
   name: "Floor",
-
+  props: ["list"],
   data() {
     return {};
   },

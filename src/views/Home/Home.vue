@@ -2,13 +2,12 @@
   <div>
     <TypeNav></TypeNav>
     <ListContainer></ListContainer>
-    <br>
-    <br>
+    <br />
+    <br />
     <TodayRecommend></TodayRecommend>
     <Rank></Rank>
     <Like></Like>
-    <Floor></Floor>
-    <Floor></Floor>
+    <Floor v-for="floor of FloorsData" :key="floor.id" :list="floor"></Floor>
     <Brand></Brand>
   </div>
 </template>
@@ -20,6 +19,9 @@ import Rank from "./Rank/Rank.vue";
 import Like from "./Like/Like.vue";
 import Floor from "./Floor/Floor.vue";
 import Brand from "./Brand/Brand.vue";
+
+import {mapState} from 'vuex'
+
 
 export default {
   name: "HomeComponent",
@@ -36,10 +38,15 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("TypeNavOptions/getTypeNav")
+    this.$store.dispatch("TypeNavOptions/getTypeNav");
+    this.$store.dispatch("HomeOptions/getFloors");
   },
 
   methods: {},
+
+    computed: {
+    ...mapState("HomeOptions", ['FloorsData'])
+  }
 };
 </script>
 

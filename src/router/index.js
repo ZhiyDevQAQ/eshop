@@ -41,7 +41,7 @@ export default new vueRouter({
   routes: [
     {
       name: "home",
-      path: "/home",
+      path: "/Home",
       component: Home,
       meta: {
         footerShow: true,
@@ -49,7 +49,7 @@ export default new vueRouter({
     },
     {
       name: "login",
-      path: "/login",
+      path: "/Login",
       component: Login,
       meta: {
         footerShow: false,
@@ -57,7 +57,7 @@ export default new vueRouter({
     },
     {
       name: "register",
-      path: "/register",
+      path: "/Register",
       component: Register,
       meta: {
         footerShow: false,
@@ -65,7 +65,7 @@ export default new vueRouter({
     },
     {
       name: "search",
-      path: "/search/:keyword?",
+      path: "/Search/:keyword?",
       component: Search,
       meta: {
         footerShow: true,
@@ -74,7 +74,7 @@ export default new vueRouter({
     },
     {
       path: "*",
-      redirect: "/home",
+      redirect: "/Home",
     },
   ],
 });

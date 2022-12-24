@@ -2,47 +2,52 @@
   <div>
     <div class="type-nav">
       <div class="container">
-        <div>
+        <div @mouseenter="showTypeNavFunc" @mouseleave="hideTypeNavFunc">
           <h2 class="all">全部商品分类</h2>
-          <div class="sort" v-show="showTypeNav">
-            <div class="all-sort-list2" @click="goSearch">
-              <div class="item" v-for="c1 in data" :key="c1.categoryId">
-                <h3>
-                  <a
-                    :data-categoryName="c1.categoryName"
-                    :data-category1Id="c1.categoryId"
-                    >{{ c1.categoryName }}</a
-                  >
-                </h3>
-                <div class="item-list clearfix">
-                  <div
-                    class="subitem"
-                    v-for="c2 in c1.categoryChild"
-                    :key="c2.categoryId"
-                  >
-                    <dl class="fore">
-                      <dt>
-                        <a
-                          :data-categoryName="c2.categoryName"
-                          :data-category2Id="c2.categoryId"
-                          >{{ c2.categoryName }}</a
-                        >
-                      </dt>
-                      <dd>
-                        <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+          <transition name="sort">
+            <div class="sort" v-show="showTypeNav">
+              <div class="all-sort-list2" @click="goSearch">
+                <div class="item" v-for="c1 in data" :key="c1.categoryId">
+                  <h3>
+                    <a
+                      :data-categoryName="c1.categoryName"
+                      :data-category1Id="c1.categoryId"
+                      >{{ c1.categoryName }}</a
+                    >
+                  </h3>
+                  <div class="item-list clearfix">
+                    <div
+                      class="subitem"
+                      v-for="c2 in c1.categoryChild"
+                      :key="c2.categoryId"
+                    >
+                      <dl class="fore">
+                        <dt>
                           <a
-                            :data-categoryName="c3.categoryName"
-                            :data-category3Id="c3.categoryId"
-                            >{{ c3.categoryName }}</a
+                            :data-categoryName="c2.categoryName"
+                            :data-category2Id="c2.categoryId"
+                            >{{ c2.categoryName }}</a
                           >
-                        </em>
-                      </dd>
-                    </dl>
+                        </dt>
+                        <dd>
+                          <em
+                            v-for="c3 in c2.categoryChild"
+                            :key="c3.categoryId"
+                          >
+                            <a
+                              :data-categoryName="c3.categoryName"
+                              :data-category3Id="c3.categoryId"
+                              >{{ c3.categoryName }}</a
+                            >
+                          </em>
+                        </dd>
+                      </dl>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </transition>
         </div>
         <nav class="nav">
           <a href="###">服装城</a>
@@ -72,7 +77,7 @@ export default {
 
   mounted() {
     // 判断是不是home，如果不是home则默认关闭TypeNav
-    if (this.$route.path !== '/home') {
+    if (this.$route.path !== "/Home") {
       this.showTypeNav = false;
     }
   },
@@ -95,7 +100,18 @@ export default {
         query.category3id = category3id;
       }
       location.query = query;
+      if (this.$route.params) {
+        location.params = this.$route.params;
+      }
       this.$router.push(location);
+    },
+    showTypeNavFunc() {
+      this.showTypeNav = true;
+    },
+    hideTypeNavFunc() {
+      if (this.$route.path !== "/Home") {
+        this.showTypeNav = false;
+      }
     },
   },
 
@@ -235,6 +251,20 @@ export default {
           }
         }
       }
+    }
+
+    .sort-enter {
+      height: 0px;
+      transform: scale(0%);
+    }
+
+    .sort-enter-to {
+      height: 461px;
+      transform: scale(100%);
+    }
+
+    .sort-enter-active {
+      transition: all 0.2s;
     }
   }
 }
